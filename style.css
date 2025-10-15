@@ -1,0 +1,216 @@
+/* styles.css - Rozzel Bienestar
+   Paleta: rosa pastel (#F6D6E0), verde salvia (#A6C8B8), beige claro (#FFF7F0), gris oscuro (#333) Rozzel (#93b9bc)
+*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root{
+  --bg:#FFF7F0;
+  --accent:#F6D6E0;
+  --muted:#A6C8B8;
+  --dark:#333333;
+  --card:#FFFFFF;
+  --radius:14px;
+  --max-width:1100px;
+}
+
+*{box-sizing:border-box}
+html,body{
+    margin:0;
+    padding:0;
+    font-family:'Inter',system-ui,-apple-system; 
+    background:linear-gradient(180deg,var(--bg),#fff); 
+    color:var(--dark);
+    -webkit-font-smoothing:antialiased;
+}
+a{
+    color:var(--dark); 
+    text-decoration:none
+}
+.container{
+    max-width:var(--max-width); 
+    margin:0 auto; padding:28px;
+}
+.header{
+  display:flex; align-items:center; 
+  justify-content:space-between; gap:20px;
+  padding:18px 0;
+}
+.logo{
+  display:flex; 
+  align-items:center; 
+  gap:12px;
+  font-weight:700; 
+  letter-spacing:0.6px;
+}
+.mark img{
+  width:52px;height:52px;
+  display:flex; 
+  align-items:center; 
+  justify-content:center;
+}
+.nav a{
+    margin-left:18px; 
+    font-weight:600; 
+    color:var(--dark)
+}
+.hero{
+  display:grid; 
+  grid-template-columns:1fr 420px; gap:28px; 
+  align-items:center; 
+  margin-top:18px;
+}
+.hero .panel{
+  background:var(--card); 
+  border-radius:var(--radius); 
+  padding:28px; 
+  box-shadow:0 6px 30px rgba(0,0,0,0.06);
+}
+.hero h1{
+    font-size:34px;
+    margin:0 0 12px
+}
+.hero p{
+    margin:0 0 18px; 
+    color:#555
+}
+.cta{
+    display:flex; 
+    gap:12px; 
+    margin-top:12px;
+}
+.btn{
+  padding:12px 18px; 
+  border-radius:10px; 
+  border:0; 
+  cursor:pointer; 
+  font-weight:600;
+}
+.btn-primary{
+    background:#93b9bc; 
+    color:#fff
+}
+.btn-ghost{
+    background:transparent; 
+    border:2px solid #93b9bc; 
+    color:#93b9bc
+}
+
+.card-grid{
+    display:grid; 
+    grid-template-columns:repeat(3,1fr); 
+    gap:18px; 
+    margin-top:20px;
+}
+.card{
+    background:var(--card); 
+    padding:18px; border-radius:12px; 
+    box-shadow:0 6px 18px rgba(0,0,0,0.04); 
+    text-align:center
+}
+.card h3{
+    margin:12px 0 6px
+}
+.card p{
+    font-size:14px;
+    color:#666
+}
+
+/* Servicios list */
+.services-list{
+    display:grid; 
+    grid-template-columns:repeat(2,1fr); 
+    gap:18px; 
+    margin-top:18px
+}
+.service{
+    background:linear-gradient(180deg,#fff, #fbfbfb); 
+    border-radius:12px; padding:18px; display:flex; 
+    gap:14px; align-items:center
+}
+.service .icon{
+    width:68px;
+    height:68px;
+    border-radius:10px;
+    background:#93b9bc; 
+    display:flex;align-items:center;
+    justify-content:center;
+    color: white;
+    font-weight:700;
+    box-shadow:0 6px 16px rgba(246,214,224,0.4)
+}
+
+/* Testimonios carousel */
+.testimonials{
+    margin-top:22px;
+    padding:18px;
+    border-radius:12px;
+    background:linear-gradient(180deg,#fff, #f8fbf8);
+}
+.testimonials .slide{
+    display:none
+}
+.testimonials .slide.active{
+    display:block
+}
+.testimonials p{
+    font-style:italic;
+    color:#444;
+    margin:10px 0
+}
+
+/* Tienda */
+.product-grid{
+    display:grid; 
+    grid-template-columns:repeat(3,1fr); 
+    gap:16px; 
+    margin-top:16px
+}
+.product{
+    background:var(--card); 
+    padding:16px;
+    border-radius:12px;
+    text-align:center;
+}
+.product button{
+    margin-top:10px
+}
+
+/* Footer */
+.footer{
+    margin-top:28px;
+    padding:18px 0;
+    color:#666;
+    font-size:14px;
+    border-top:1px solid rgba(0,0,0,0.04)
+}
+
+/* Forms */
+.form-row{
+    display:flex; 
+    gap:12px
+}
+input,textarea,select{
+    width:100%; 
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #eaeaea; 
+    font-size:14px
+}
+label{
+    font-weight:600;
+    display:block; 
+    margin-bottom:6px
+}
+
+/* Responsive */
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr; }
+  .card-grid{grid-template-columns:repeat(2,1fr)}
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+  .card-grid{grid-template-columns:1fr}
+  .services-list{grid-template-columns:1fr}
+  .product-grid{grid-template-columns:1fr}
+  .nav{display:none}
+}

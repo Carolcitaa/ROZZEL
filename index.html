@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rozzel Bienestar — Inicio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="IMG/rozzel.png">
+</head>
+<body>
+  <header class="container header">
+    <div class="logo">
+      <div class="mark"> <img src="/IMG/rozzel.png"></div>
+      <div>
+        <div style="font-size:16px">Rozzel</div>
+        <div style="font-size:12px;color:#6b6b6b">Bienestar</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="theta.html">ThetaHealing</a>
+      <a href="tienda.html">Esencias</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="panel">
+        <h1>Encuentra calma. Reconecta contigo.</h1>
+        <p>Masajes terapéuticos, sesiones de ThetaHealing y esencias artesanales para acompañar tu cuidado. Experiencias personalizadas en un espacio seguro.</p>
+        <div class="cta">
+          <a href="reservas.html" class="btn btn-primary">Reservar ahora</a>
+          <a href="tienda.html" class="btn btn-ghost">Comprar esencias</a>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <img src="/IMG/corazon.png" alt="masajes" style="width:50%; border-radius:10px">
+            <h3>Masajes</h3>
+            <p>Relajante, terapéutico y descontracturante.</p>
+          </div>
+          <div class="card">
+            <img src="/IMG/monitosm.png" alt="theta" style="width:50%; border-radius:10px">
+            <h3>ThetaHealing</h3>
+            <p>Sesiones individuales para desbloqueo emocional.</p>
+          </div>
+          <div class="card">
+            <img src="IMG/aroma.png" alt="esencias" style="width:50%; border-radius:10px">
+            <h3>Esencias</h3>
+            <p>Fórmulas artesanales para tu bienestar diario.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <h3>Reserva rápida</h3>
+        <form id="quick-book">
+          <label>Servicio
+            <select name="servicio">
+              <option>Masaje relajante — 60 min</option>
+              <option>Masaje terapéutico — 60 min</option>
+              <option>ThetaHealing — 60 min</option>
+            </select>
+          </label>
+          <label>Fecha
+            <input type="date" name="fecha" required>
+          </label>
+          <label>Hora
+            <input type="time" name="hora" required>
+          </label>
+          <button class="btn btn-primary" type="submit">Solicitar</button>
+        </form>
+
+        <div class="testimonials" style="margin-top:18px">
+          <h4>Testimonios</h4>
+          <div id="t1" class="slide active">
+            <p>"La sesión de Theta me ayudó a soltar algo que cargaba años."</p>
+            <div style="font-weight:700">— Ana P.</div>
+          </div>
+          <div id="t2" class="slide">
+            <p>"Los masajes son profesionales y el espacio es muy relajante."</p>
+            <div style="font-weight:700">— Luis M.</div>
+          </div>
+          <div id="t2" class="slide">
+            <p>"Las esencias son increibles, me ayudo a relajarme."</p>
+            <div style="font-weight:700">— Jean L.</div>
+          </div>
+          <div style="margin-top:10px">
+            <button class="btn" onclick="prevTest()">‹</button>
+            <button class="btn" onclick="nextTest()">›</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section style="margin-top:26px">
+      <h2>Servicios destacados</h2>
+      <div class="services-list">
+        <div class="service">
+          <div class="icon">M</div>
+          <div>
+            <h4>Masaje relajante</h4>
+            <p>Ideal para aliviar tensión y mejorar sueño.</p>
+          </div>
+        </div>
+        <div class="service">
+          <div class="icon">T</div>
+          <div>
+            <h4>ThetaHealing 1:1</h4>
+            <p>Trabajo profundo emocional y energético.</p>
+          </div>
+        </div>
+        <div class="service">
+          <div class="icon">E</div>
+          <div>
+            <h4>Esencias personalizadas</h4>
+            <p>Consultoría para mezclas según intención.</p>
+          </div>
+        </div>
+        <div class="service">
+          <div class="icon">P</div>
+          <div>
+            <h4>Paquetes</h4>
+            <p>Planes mensuales de cuidado continuo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer container">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>© Rozzel Bienestar</div>
+        <div>Contacto: hola@rozzel.com · +52 1 55 0000 000</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Testimonios simple
+    let idx=0;
+    const slides = document.querySelectorAll('.testimonials .slide');
+    function show(i){
+      slides.forEach(s=>s.classList.remove('active'));
+      slides[i].classList.add('active');
+    }
+    function nextTest(){ idx = (idx+1)%slides.length; show(idx);}
+    function prevTest(){ idx = (idx-1+slides.length)%slides.length; show(idx);}
+    // Quick book mock
+    document.getElementById('quick-book').addEventListener('submit', e=>{
+      e.preventDefault();
+      alert('Solicitud de reserva enviada. Pronto recibirás confirmación por email (mock).');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contacto — Rozzel Bienestar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="container header">
+    <div class="logo"><div class="mark"><img src="/IMG/rozzel.png"></div><div><div style="font-size:16px">Rozzel</div><div style="font-size:12px;color:#6b6b6b">Bienestar</div></div></div>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="theta.html">ThetaHealing</a>
+      <a href="tienda.html">Esencias</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h1>Contacto</h1>
+      <p>Escríbenos y te contestamos a la brevedad.</p>
+
+      <form id="contact-form" style="margin-top:12px">
+        <label>Nombre
+          <input type="text" name="name" required>
+        </label>
+        <label>Email
+          <input type="email" name="email" required>
+        </label>
+        <label>Mensaje
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <div style="margin-top:12px">
+          <button class="btn btn-primary" type="submit">Enviar</button>
+        </div>
+      </form>
+
+      <div style="margin-top:18px">
+        <h3>Visítanos</h3>
+        <p>Dirección de ejemplo: Calle Armonía 123, Ciudad. Horario: Lun–Vie 10:00–19:00</p>
+      </div>
+    </section>
+
+    <footer class="footer container">© Rozzel Bienestar</footer>
+  </main>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', e=>{
+      e.preventDefault();
+      // Aquí integrarías un endpoint (Formspree, Netlify forms, API propia)
+      alert('Gracias, tu mensaje fue enviado (simulado). Te contactaremos pronto.');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

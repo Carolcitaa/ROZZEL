@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tienda — Esencias Rozzel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="container header">
+    <div class="logo"><div class="mark"><img src="/IMG/rozzel.png"></div><div><div style="font-size:16px">Rozzel</div><div style="font-size:12px;color:#6b6b6b">Bienestar</div></div></div>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="theta.html">ThetaHealing</a>
+      <a href="tienda.html">Esencias</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h1>Esencias artesanales</h1>
+      <p>Mezclas creadas con intención: aromaterapia práctica para el día a día. Selecciona y agrégalos al carrito.</p>
+
+      <div class="product-grid">
+        <div class="product">
+          <img src="IMG/mdi--scent.png" alt="Esencia Romero" style="width:20%;border-radius:10px">
+          <h4>Romero — 10ml</h4>
+          <p>Aumenta la concentración, mejora la memoria y alivia el estrés, reduce la ansiedad y los niveles de cortisol.</p>
+          <div>$150 MXN</div>
+          <button class="btn" onclick="addToCart('Romero',150)">Agregar</button>
+        </div>
+
+        <div class="product">
+          <img src="IMG/mdi--scent.png" alt="Esencia Rosas" style="width:20%;border-radius:10px">
+          <h4>Rosas — 10ml</h4>
+          <p>Eleva el estado de ánimo y promueve una sensación de bienestar, combate el estrés y la ansiedad.</p>
+          <div>$150 MXN</div>
+          <button class="btn" onclick="addToCart('Rosas',150)">Agregar</button>
+        </div>
+
+        <div class="product">
+          <img src="IMG/mdi--scent.png" alt="Esencia Lavanda" style="width:20%;border-radius:10px">
+          <h4>Lavanda — 10ml</h4>
+          <p>Reduce el estrés y la ansiedad, mejora la concentración y promueve el sueño reparador.</p>
+          <div>$150 MXN</div>
+          <button class="btn" onclick="addToCart('Lavanda',150)">Agregar</button>
+        </div>
+      </div>
+
+      <div style="margin-top:18px" id="cart" class="panel" aria-live="polite">
+        <h3>Carrito</h3>
+        <div id="cart-items">No hay productos.</div>
+        <div id="cart-total"></div>
+        <div style="margin-top:8px"><button class="btn btn-primary" onclick="checkout()">Pagar</button></div>
+      </div>
+    </section>
+
+    <footer class="footer container">© Rozzel Bienestar</footer>
+  </main>
+
+  <script>
+    let cart = [];
+    function addToCart(name,price){
+      cart.push({name,price});
+      renderCart();
+    }
+    function renderCart(){
+      const el = document.getElementById('cart-items');
+      if(cart.length===0) el.innerHTML = 'No hay productos.';
+      else{
+        el.innerHTML = '<ul>' + cart.map((c,i)=>`<li>${c.name} — $${c.price} MXN <button onclick="removeItem(${i})">x</button></li>`).join('') + '</ul>';
+      }
+      const total = cart.reduce((s,c)=>s+c.price,0);
+      document.getElementById('cart-total').innerText = cart.length?('Total: $'+total+' MXN'):'';
+    }
+    function removeItem(i){ cart.splice(i,1); renderCart(); }
+    function checkout(){
+      if(cart.length===0){ alert('El carrito está vacío.'); return;}
+      alert('Pago simulado. En producción integrar pasarela de pagos.');
+      cart = []; renderCart();
+    }
+  </script>
+</body>
+</html>
