@@ -15,6 +15,7 @@
       <a href="theta.html">ThetaHealing</a>
       <a href="tienda.html">Esencias</a>
       <a href="contacto.html">Contacto</a>
+      <a href="registro.html">Registro</a>
     </nav>
   </header>
 
@@ -23,20 +24,20 @@
       <h1>Contacto</h1>
       <p>Escríbenos y te contestamos a la brevedad.</p>
 
-      <form id="contact-form" style="margin-top:12px">
+      <div id="contact-form" style="margin-top:12px">
         <label>Nombre
-          <input type="text" name="name" required>
+          <input type="text" id="name" required>
         </label>
         <label>Email
-          <input type="email" name="email" required>
+          <input type="email" id="email" required>
         </label>
         <label>Mensaje
-          <textarea name="message" rows="5" required></textarea>
+          <textarea id="message" rows="5" required></textarea>
         </label>
         <div style="margin-top:12px">
-          <button class="btn btn-primary" type="submit">Enviar</button>
+          <button id="btnEnviar" class="btn btn-primary">Enviar</button>
         </div>
-      </form>
+      </div>
 
       <div style="margin-top:18px">
         <h3>Visítanos</h3>
@@ -55,5 +56,6 @@
       e.target.reset();
     });
   </script>
+  <script src="./main.js" type="module"></script>
 </body>
 </html>

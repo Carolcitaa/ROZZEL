@@ -22,6 +22,7 @@
       <a href="theta.html">ThetaHealing</a>
       <a href="tienda.html">Esencias</a>
       <a href="contacto.html">Contacto</a>
+      <a href="registro.html">Registro</a>
     </nav>
   </header>
 
@@ -57,6 +58,15 @@
       <aside class="panel">
         <h3>Reserva rápida</h3>
         <form id="quick-book">
+          <label>Nombre
+            <input type="text" name="nombre" required>
+          </label>
+          <label>Teléfono
+            <input type="tel" name="telefono">  
+          </label>
+          <label>Correo electrónico
+            <input type="email" name="email" required>
+          </label>
           <label>Servicio
             <select name="servicio">
               <option>Masaje relajante — 60 min</option>
@@ -153,6 +163,9 @@
       alert('Solicitud de reserva enviada. Pronto recibirás confirmación por email (mock).');
       e.target.reset();
     });
+  </script>
+  <script src="./main.js" type="module">
+    
   </script>
 </body>
 </html>

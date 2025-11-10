@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rozzel Bienestar — Registro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="IMG/rozzel.png">
+    <style>
+      /* Estilos mínimos para el formulario (puedes moverlos a style.css) */
+      .panel { padding: 18px; background:#fff; border-radius:6px; }
+      .product-form label{ display:block; margin:8px 0; }
+      .product-form input[type="text"],
+      .product-form textarea,
+      .product-form input[type="number"],
+      .product-form select{ width:100%; padding:8px; box-sizing:border-box; }
+      .product-item{ border:1px solid #eee; padding:10px; margin:8px 0; display:flex; gap:10px; align-items:center; }
+      .product-item img{ width:60px; height:60px; object-fit:cover; border-radius:4px; }
+      .actions button{ margin-left:6px; }
+    </style>
+</head>
+<body>
+    <header class="container header">
+      <div class="logo">
+        <div class="mark"><img src="IMG/rozzel.png" alt="Rozzel"></div>
+        <div>
+          <div style="font-size:16px">Rozzel</div>
+          <div style="font-size:12px;color:#6b6b6b">Bienestar</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="theta.html">ThetaHealing</a>
+        <a href="tienda.html">Esencias</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="registro.html">Registro</a>
+      </nav>
+    </header>
+
+    <main class="container">
+        <div style="margin-top:18px">
+          <article style="margin-bottom:14px">
+
+          <hr>
+
+          <!-- Formulario de registro de productos -->
+          <form id="productForm" class="product-form" enctype="multipart/form-data">
+            <h2>Registrar producto</h2>
+            <label>ID
+              <input type="text" name="ID" id="ID" required>
+            </label>
+
+            <label>Nombre
+              <input type="text" name="name" id="name" required>
+            </label>
+
+            <label>Descripción
+              <textarea name="description" id="description" rows="3"></textarea>
+            </label>
+
+            <label>Categoría
+              <select name="category" id="category">
+                <option value="Esencia">Esencia</option>
+                <option value="Servicio">Servicio</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </label>
+
+            <label>Tamaño / Presentación
+              <input type="text" name="size" id="size" placeholder="ej. 10ml">
+            </label>
+
+            <label>Precio (USD)
+              <input type="number" name="price" id="price" step="0.01" min="0">
+            </label>
+
+            <label>Imagen (opcional)
+              <input type="file" name="image" id="image" accept="image/*">
+            </label>
+
+            <div style="margin-top:8px">
+              <button id="btnGuardar">Guardar producto</button>
+              <button type="button" id="clearStorage">Borrar todos</button>
+            </div>
+          </form>
+
+          <!-- Lista de productos guardados -->
+          <section id="productListContainer" style="margin-top:18px">
+            <h2>Productos registrados</h2>
+            <div id="productList"></div>
+          </section>
+
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer container">
+      © Rozzel Bienestar
+    </footer>
+
+    <script>
+      // Manejo simple: guarda en localStorage y muestra en la página
+      const form = document.getElementById('productForm');
+      const listEl = document.getElementById('productList');
+      const clearBtn = document.getElementById('clearStorage');
+
+      let productos = JSON.parse(localStorage.getItem('productos') || '[]');
+
+      function saveProductos() {
+        localStorage.setItem('productos', JSON.stringify(productos));
+      }
+
+      function renderProductos() {
+        listEl.innerHTML = '';
+        if (productos.length === 0) {
+          listEl.innerHTML = '<p>No hay productos registrados.</p>';
+          return;
+        }
+        productos.forEach((p, idx) => {
+          const el = document.createElement('div');
+          el.className = 'product-item';
+          el.innerHTML = `
+            ${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}
+            <div style="flex:1">
+              <strong>${p.name}</strong> <small style="color:#666">(${p.category}${p.size ? ' — '+p.size : ''})</small>
+              <div style="color:#444">${p.description || ''}</div>
+              <div style="margin-top:6px"><strong>${p.price ? ('$' + Number(p.price).toFixed(2)) : ''}</strong></div>
+            </div>
+            <div class="actions">
+              <button data-idx="${idx}" class="delete-btn">Eliminar</button>
+            </div>
+          `;
+          listEl.appendChild(el);
+        });
+
+        // Delegación para eliminar
+        listEl.querySelectorAll('.delete-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const i = Number(e.currentTarget.dataset.idx);
+            productos.splice(i,1);
+            saveProductos();
+            renderProductos();
+          });
+        });
+      }
+
+      function readImageFile(file) {
+        return new Promise((res, rej) => {
+          if (!file) return res(null);
+          const reader = new FileReader();
+          reader.onload = () => res(reader.result);
+          reader.onerror = rej;
+          reader.readAsDataURL(file);
+        });
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = form.name.value.trim();
+        if (!name) return alert('Nombre requerido');
+        const description = form.description.value.trim();
+        const category = form.category.value;
+        const size = form.size.value.trim();
+        const price = form.price.value ? Number(form.price.value).toFixed(2) : '';
+        const file = form.image.files[0];
+
+        const imageData = await readImageFile(file);
+
+        const producto = { name, description, category, size, price, image: imageData, createdAt: Date.now() };
+        productos.push(producto);
+        saveProductos();
+        renderProductos();
+        form.reset();
+      });
+
+      clearBtn.addEventListener('click', () => {
+        if (!confirm('Borrar todos los productos guardados?')) return;
+        productos = [];
+        saveProductos();
+        renderProductos();
+      });
+
+      // Inicializar vista
+      renderProductos();
+    </script>
+</body>
+</html>

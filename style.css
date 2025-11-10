@@ -163,7 +163,7 @@ a{
     display:grid; 
     grid-template-columns:repeat(3,1fr); 
     gap:16px; 
-    margin-top:16px
+    margin-top:16px;
 }
 .product{
     background:var(--card); 
