@@ -22,6 +22,15 @@ html,body{
     color:var(--dark);
     -webkit-font-smoothing:antialiased;
 }
+.botonguardarproducto{
+    background-color: black;
+    border: none;
+    padding: 10px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+
+}
 a{
     color:var(--dark); 
     text-decoration:none

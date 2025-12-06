@@ -6,9 +6,18 @@
   <title>Tienda — Esencias Rozzel</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <!-- HEADER -->
   <header class="container header">
-    <div class="logo"><div class="mark"><img src="rozzel.png"></div><div><div style="font-size:16px">Rozzel</div><div style="font-size:12px;color:#6b6b6b">Bienestar</div></div></div>
+    <div class="logo">
+      <div class="mark"><img src="/IMG/rozzel.png"></div>
+      <div>
+        <div style="font-size:16px">Rozzel</div>
+        <div style="font-size:12px;color:#6b6b6b">Bienestar</div>
+      </div>
+    </div>
+
     <nav class="nav">
       <a href="index.html">Inicio</a>
       <a href="servicios.html">Servicios</a>
@@ -19,93 +28,94 @@
     </nav>
   </header>
 
+  <!-- MAIN -->
   <main class="container">
+
     <section class="panel">
       <h1>Esencias artesanales</h1>
       <p>Mezclas creadas con intención: aromaterapia práctica para el día a día. Selecciona y agrégalos al carrito.</p>
 
-      <div class="product-grid">
-        <div class="product">
-          <img src="ROMERO.jpg" alt="Esencia Romero" style="width:80%;border-radius:10px">
-          <h4>Romero — 10ml</h4>
-          <p>Aumenta la concentración, mejora la memoria y alivia el estrés, reduce la ansiedad y los niveles de cortisol.</p>
-          <div>$150 MXN</div>
-          <button class="btn" onclick="addToCart('Romero',150)">Agregar</button>
-        </div>
+      <div class="product-grid" id="lista"></div>
 
-        <div class="product">
-          <img src="ROSAS.jpg" alt="Esencia Rosas" style="width:80%;border-radius:10px">
-          <h4>Rosas — 10ml</h4>
-          <p>Eleva el estado de ánimo y promueve una sensación de bienestar, combate el estrés y la ansiedad.</p>
-          <div>$150 MXN</div>
-          <button class="btn" onclick="addToCart('Rosas',150)">Agregar</button>
-        </div>
-
-        <div class="product">
-          <img src="LAVANDA.jpg" alt="Esencia Lavanda" style="width:80%;border-radius:10px">
-          <h4>Lavanda — 10ml</h4>
-          <p>Reduce el estrés y la ansiedad, mejora la concentración y promueve el sueño reparador.</p>
-          <div>$150 MXN</div>
-          <button class="btn" onclick="addToCart('Lavanda',150)">Agregar</button>
-        </div>
-
-        <div class="product">
-          <img src="CANELA.jpg" alt="Esencia Canela" style="width:80%;border-radius:10px">
-          <h4>Canela — 10ml</h4>
-          <p>Estimula la mente, mejora la circulación y eleva tu estado de ánimo.</p>
-          <div>$150 MXN</div>
-          <button class="btn" onclick="addToCart('Canela',150)">Agregar</button>
-        </div>
         
-        <div class="product">
-          <img src="ALBAHACA.jpg" alt="Esencia Albahaca" style="width:80%;border-radius:10px">
-          <h4>Albahaca — 10ml</h4>
-          <p>Ideal para la claridad mental, aliviar las tensiones y elevar tu concentración.</p>
-          <div>$150 MXN</div>
-          <button class="btn" onclick="addToCart('Albahaca',150)">Agregar</button>
-        </div>
-
-        <div class="product">
-          <img src="jazmin1.jpg" alt="Esencia Jazmín" style="width:80%;border-radius:10px">
-          <h4>Jazmín — 10ml</h4>
-          <p>Mejora tu estado de ánimo, aliviar dolores musculares y brindarte un efecto calmante y relajante.</p>
-          <div>$150 MXN</div>
-          <button class="btn" onclick="addToCart('Jazmín',150)">Agregar</button>
-        </div>
-      </div>
-
-      <div style="margin-top:18px" id="cart" class="panel" aria-live="polite">
+      <!-- CARRITO -->
+      <div id="cart" class="panel" style="margin-top:18px" aria-live="polite">
         <h3>Carrito</h3>
         <div id="cart-items">No hay productos.</div>
         <div id="cart-total"></div>
-        <div style="margin-top:8px"><button class="btn btn-primary" onclick="checkout()">Pagar</button></div>
+        <button class="btn btn-primary" style="margin-top:8px" onclick="checkout()">Pagar</button>
       </div>
+
     </section>
 
     <footer class="footer container">© Rozzel Bienestar</footer>
   </main>
 
+  <!-- CARRITO LÓGICA -->
   <script>
     let cart = [];
-    function addToCart(name,price){
-      cart.push({name,price});
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
       renderCart();
     }
-    function renderCart(){
-      const el = document.getElementById('cart-items');
-      if(cart.length===0) el.innerHTML = 'No hay productos.';
-      else{
-        el.innerHTML = '<ul>' + cart.map((c,i)=>`<li>${c.name} — $${c.price} MXN <button onclick="removeItem(${i})">x</button></li>`).join('') + '</ul>';
+
+    function renderCart() {
+      const list = document.getElementById('cart-items');
+
+      if (cart.length === 0) {
+        list.innerHTML = 'No hay productos.';
+      } else {
+        list.innerHTML = cart
+          .map((c, i) =>
+            `<div>${c.name} — $${c.price} MXN 
+              <button class="btn-small" onclick="removeItem(${i})">x</button>
+            </div>`
+          ).join('');
       }
-      const total = cart.reduce((s,c)=>s+c.price,0);
-      document.getElementById('cart-total').innerText = cart.length?('Total: $'+total+' MXN'):'';
+
+      const total = cart.reduce((s, c) => s + c.price, 0);
+      document.getElementById('cart-total').innerText =
+        cart.length ? `Total: $${total} MXN` : '';
     }
-    function removeItem(i){ cart.splice(i,1); renderCart(); }
-    function checkout(){
-      if(cart.length===0){ alert('El carrito está vacío.'); return;}
-      alert('Pago simulado. En producción integrar pasarela de pagos.');
-      cart = []; renderCart();
+
+    function removeItem(i) {
+      cart.splice(i, 1);
+      renderCart();
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert('El carrito está vacío.');
+        return;
+      }
+      alert('Pago simulado. Integrar pasarela en producción.');
+      cart = [];
+      renderCart();
     }
   </script>
+
+  <script type="module">
+  import { cargarProductos } from "./tienda.js";
+
+  const lista = document.getElementById("lista");
+
+  cargarProductos((productos) => {
+    lista.innerHTML = "";
+    productos.forEach((p) => {
+      lista.innerHTML += `
+        <div class="product">
+          <img src="${p.imagen}"   style="width:80%;border-radius:10px">
+          <h4>${p.nombre} - ${p.tamaño}</h4>
+          <p>${p.descripcion}</p>
+          <div class="price">$${p.precio} USD</div>
+          <button class="btn" onclick="addToCart(${p.nombre}, ${p.tamaño} ,${p.categoria})">Agregar</button>
+        </div>
+
+      `;
+    });
+  });
+</script>
+
 </body>
 </html>
